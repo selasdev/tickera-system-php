@@ -1,0 +1,5 @@
+RewriteEngine On
+RewriteCond %{THE_REQUEST} /public/([^\s?]) [NC]
+RewriteRule ^ %1 [L,NE,R=302]
+RewriteCond %{REQUEST_URI} !(\.css|\.js|\.png|\.jpg|\.gif|robots\.txt)$ [NC]
+RewriteRule ^((?!public/).*)$ public/$1 [L,NC]
