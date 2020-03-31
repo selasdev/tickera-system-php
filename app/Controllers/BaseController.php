@@ -7,7 +7,7 @@ use Laminas\Diactoros\Response\HtmlResponse;
 class BaseController {
 
     protected $templateEngine;
-    protected $title;
+    protected $title = '';
 
     public function __construct(){
         $loader = new \Twig\Loader\FilesystemLoader('../views');
@@ -18,7 +18,9 @@ class BaseController {
     }
 
     public function renderHTML($fileName, $data = []) {
+        $pureFilename = explode(".",$fileName)[0];
         $data['pageTitle'] = $this->title;
+        $data['fileName'] = $pureFilename;
         return  new HtmlResponse($this->templateEngine->render($fileName, $data));
     }
 

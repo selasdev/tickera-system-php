@@ -46,6 +46,10 @@ $map->get('index', "/", [
     'controller' => 'App\Controllers\MainController',
     'action' => 'mainAction'
 ]);
+$map->post('dummyUser', "/", [
+    'controller' => 'App\Controllers\MainController',
+    'action' => 'createDummyUser'
+]);
 
 $matcher = $routerContainer->getMatcher();
 $route = $matcher->match($request);

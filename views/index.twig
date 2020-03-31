@@ -2,6 +2,16 @@
 
 {% block content %}
 
-<h1>HOLA</h1>
+<h1>Welcome to Tickera</h1>
+
+<button><a href="/login">Login</a></button><br>
+<button><a href="/register">Register</a></button><br>
+<form action="/" method="post">
+    <button type="submit">Create dummy user</button><br>
+</form>
+<form action="/" method="post">
+    <input type="text" name="isAdmin" hidden="true"><br>
+    <button type="submit">Create dummy admin</button><br>
+</form>
 
 {% endblock %}
