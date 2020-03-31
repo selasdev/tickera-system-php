@@ -1,3 +1,10 @@
-body {
-    background-color: rgb(112, 34, 34)
+.div-center {
+    height: 100%;
+    min-height: 100%;
+    display: table;
+}
+
+.content-center {
+    display: table-cell;
+    vertical-align: center;
 }

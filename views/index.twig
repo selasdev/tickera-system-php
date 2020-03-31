@@ -2,16 +2,86 @@
 
 {% block content %}
 
-<h1>Welcome to Tickera</h1>
+	<div class="p-1 dark-bg shadow">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 d-flex pb-5">
+					{{ source('assets/block1.svg') }}
+				</div>
+				<div class="col-md-6 primary-text p-5 d-flex align-items-center justify-content-center flex-column mb-5">
+					<h1 class="my-4">¡Olvídate de hacer fila de nuevo!</h1>
+					<h4>En tickera puedes adquirir entradas a los mejores eventos totalmente en linea,
+					¡donde sea, cuando sea y cómo quieras!</h4>
+					<button type="button" class="btn btn-light btn-lg mt-5 w-100">Light</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
-<button><a href="/login">Login</a></button><br>
-<button><a href="/register">Register</a></button><br>
-<form action="/" method="post">
-    <button type="submit">Create dummy user</button><br>
-</form>
-<form action="/" method="post">
-    <input type="text" name="isAdmin" hidden="true"><br>
-    <button type="submit">Create dummy admin</button><br>
-</form>
+	<div class="p-1 light-bg shadow">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 dark-text p-5 d-flex align-items-center justify-content-center flex-column mb-5">
+					<h1 class="my-4">¡Eventos a través de todo el globo!</h1>
+					<h4>No te preocupes de en donde te encuentras, cada vez más organizadores y artistas
+					a través del mundo eligen a tickera como su método de venta de entradas, estés donde estés,
+					podrás adquirir tu pase para ver a tu artista favorito en vivo.</h4>
+					<button type="button" class="btn btn-dark btn-lg mt-5 w-100">Dark</button>
+				</div>
+				<div class="col-md-6 d-flex p-5">
+					{{ source('assets/block2.svg') }}
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="p-1 default-bg shadow">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 d-flex pb-5">
+					{{ source('assets/block3.svg') }}
+				</div>
+				<div class="col-md-6 primary-text p-5 d-flex align-items-center justify-content-center flex-column mb-5">
+					<h1 class="my-4">¡Disponibilidad desde el anuncio!</h1>
+					<h4>Podrás encontrar las entradas desde el momento del anuncio del evento a cualquier hora
+					y en cualquier momento, no tendrás que molestarte en buscar dónde y cuándo encontrarlas. Acá
+					en tickera te las servimos en el momento que tu elijas.</h4>
+					<button type="button" class="btn btn-light btn-lg mt-5 w-100">Light</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="p-1 light-bg shadow">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 dark-text p-5 d-flex align-items-center justify-content-center flex-column mb-5">
+					<h1 class="my-4">¡Mejores precios!</h1>
+					<h4>Olvídate de esos cargos extra por logística y reventa, en tickera te ofrecemos tus entradas
+					directamente al precio que elija el evento, ahorra mucho más por mucho menos esfuerzo.</h4>
+					<button type="button" class="btn btn-dark btn-lg mt-5 w-100">Dark</button>
+				</div>
+				<div class="col-md-6 d-flex p-5">
+					{{ source('assets/block4.svg') }}
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="p-1 dark-bg shadow">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 d-flex pb-5">
+					{{ source('assets/block5.svg') }}
+				</div>
+				<div class="col-md-6 primary-text p-5 d-flex align-items-center justify-content-center flex-column mb-5">
+					<h1 class="my-4">¡Empieza a asistir a tus eventos ahora!</h1>
+					<h4>¡No esperes más y únete ya a la gran mayoría de personas que utilizan tickera por el mundo! 
+					No te des más excusas para asistir a los eventos que deseas asistir y lánzate ahora.</h4>
+					<button type="button" class="btn btn-light btn-lg mt-5 w-100">Light</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
 {% endblock %}
