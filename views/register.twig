@@ -1,0 +1,36 @@
+{% extends "baseTemplate.twig" %}
+
+{% block content %}
+
+<h1>Register to Tickera</h1>
+
+<form action="/" method="post" enctype="multipart/form-data">
+    <label for="">Nombre</label>
+    <input type="text" name="firstName"><br>
+    <label for="">Apellido</label>
+    <input type="text" name="lastName"><br>
+    <label for="">Cedula</label>
+    <input type="number" name="countryId">
+    <label for="">Direccion</label>
+    <input type="text" name="address"><br>
+    <label for="">G&eacute;nero</label>
+    <select name="gender">
+        <option value="Hombre">Hombre</option>
+        <option value="Mujer">Mujer</option>
+        <option value="Otro">Otro</option>
+    </select>
+    <label for="">Numero telefónico</label>
+    <input type="tel" name="phoneNumber"><br>
+    <label for="">Email</label>
+    <input type="email" name="email"><br>
+    <label for="">Nombre de usuario</label>
+    <input type="text" name="username"><br>
+    <label for="">Contraseña</label>
+    <input type="password" name="password"><br>
+    <label for="">Confirma tu contraseña</label>
+    <input type="password" name="cpassword"><br>
+
+    <button type="submit">Registrarme</button>
+</form>
+
+{% endblock %}
