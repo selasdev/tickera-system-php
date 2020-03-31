@@ -1,0 +1,28 @@
+.dark-bg          { background: #303F9F; }
+.default-bg       { background: #3F51B5; }
+.light-bg         { background: #C5CAE9; }
+.black-bg         { background: #212121; }
+.primary-text     { color: #FFFFFF; }
+.secondary-text   { color: #757575; }
+.dark-text        { color: #212121; }
+.accent-color     { background: #7C4DFF; }
+.divider-color    { border-color: #BDBDBD; }
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #C5CAE9;
+}
+
+img {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+}
