@@ -50,6 +50,23 @@ $map->post('dummyUser', "/", [
     'controller' => 'App\Controllers\MainController',
     'action' => 'createDummyUser'
 ]);
+$map->get('showRegisterForm', '/signup', [
+    'controller' => 'App\Controllers\RegisterController',
+    'action' => 'getRegister'
+]);
+$map->post('registerUser', '/signup', [
+    'controller' => 'App\Controllers\RegisterController',
+    'action' => 'postRegister'
+]);
+$map->get('getLogin', '/login', [
+    'controller' => 'App\Controllers\AuthController',
+    'action' => 'getLogin'
+]);
+$map->post('loginUser', '/login', [
+    'controller' => 'App\Controllers\AuthController',
+    'action' => 'postLogin'
+]);
+
 
 $matcher = $routerContainer->getMatcher();
 $route = $matcher->match($request);
