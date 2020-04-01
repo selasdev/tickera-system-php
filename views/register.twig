@@ -2,7 +2,24 @@
 
 {% block content %}
 
-<h1>Register to Tickera</h1>
+{% if responseMessage %}
+<div class="alert alert-primary" role="alert">
+    {{ responseMessage }}
+</div>
+{% endif %}
+{% if errorMessages is not same as(null) %}
+    <div class="alert alert-primary" role="alert">
+        <ul>
+        {% for msg in errorMessages %}
+                {% if msg is not same as(null) and msg is not same as('') %}
+                <li>{{ msg }}</li>
+                {% endif %}
+        {% endfor %} 
+        </ul>
+    </div>
+{% endif %}
+
+<h1>Registrate en Tickera</h1>
 
 <form action="signup" method="post" enctype="multipart/form-data">
     <label for="">Nombre</label>
@@ -32,22 +49,5 @@
 
     <button type="submit">Registrarme</button>
 </form>
-
-    {% if responseMessage %}
-    <div class="alert alert-primary" role="alert">
-        {{ responseMessage }}
-    </div>
-    {% endif %}
-    {% if errorMessages is not same as(null) %}
-        <div class="alert alert-primary" role="alert">
-            <ul>
-            {% for msg in errorMessages %}
-                    {% if msg is not same as(null) and msg is not same as('') %}
-                    <li>{{ msg }}</li>
-                    {% endif %}
-            {% endfor %} 
-            </ul>
-        </div>
-    {% endif %}
 
 {% endblock %}

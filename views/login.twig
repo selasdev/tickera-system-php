@@ -2,9 +2,21 @@
 
 {% block content %}
 
-<h1>Login to tickera</h1>
+{% if responseMessage %}
+<div class="alert alert-primary" role="alert">
+    {{ responseMessage }}
+</div>
+{% endif %}
 
-<button><a href="/login">Login</a></button>
-<button><a href="/register">Register</a></button>
+<h1>Inicia sesi&oacute;n en Tickera</h1>
+
+
+<form action="login" method="post" enctype="multipart/form-data">
+    <label for="">Nombre de usuario/E-mail</label><br>
+    <input type="text" name="username" required><br>
+    <label for="">Contraseña</label><br>
+    <input type="password" name="password" required><br>
+    <button type="submit">Inicia sesi&oacute;n</button>
+</form>
 
 {% endblock %}

@@ -8,7 +8,7 @@ use App\Models\User;
 
 class RegisterController extends BaseController {
 
-    protected $title = "Register";
+    protected $title = "Registrate - Tickera.com";
 
     private function createFormValidator($parsedData){
         $validator = v::key('email', v::email())

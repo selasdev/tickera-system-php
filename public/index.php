@@ -58,6 +58,14 @@ $map->post('registerUser', '/signup', [
     'controller' => 'App\Controllers\RegisterController',
     'action' => 'postRegister'
 ]);
+$map->get('getLogin', '/login', [
+    'controller' => 'App\Controllers\AuthController',
+    'action' => 'getLogin'
+]);
+$map->post('loginUser', '/login', [
+    'controller' => 'App\Controllers\AuthController',
+    'action' => 'postLogin'
+]);
 
 
 $matcher = $routerContainer->getMatcher();
