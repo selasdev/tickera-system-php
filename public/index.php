@@ -50,6 +50,15 @@ $map->post('dummyUser', "/", [
     'controller' => 'App\Controllers\MainController',
     'action' => 'createDummyUser'
 ]);
+$map->get('showRegisterForm', '/signup', [
+    'controller' => 'App\Controllers\RegisterController',
+    'action' => 'getRegister'
+]);
+$map->post('registerUser', '/signup', [
+    'controller' => 'App\Controllers\RegisterController',
+    'action' => 'postRegister'
+]);
+
 
 $matcher = $routerContainer->getMatcher();
 $route = $matcher->match($request);

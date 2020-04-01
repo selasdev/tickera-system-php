@@ -16,12 +16,12 @@ class RegisterController extends BaseController {
             ->length(6,20))
             ->key('cpassword', v::equals($parsedData['password']))
             ->key('countryId', v::intType())
-            ->key('firstName', v::stringType()->notEmpty()->noWhitespace())
-            ->key('lastName', v::stringType()->notEmpty()->noWhitespace())
-            ->key('address', v::stringType()->notEmpty()->noWhitespace())
-            ->key('phoneNumber', v::stringType()->notEmpty());
+            ->key('firstName', v::stringType()->notEmpty())
+            ->key('lastName', v::stringType()->notEmpty())
+            ->key('address', v::stringType()->notEmpty())
+            ->key('phoneNumber', v::stringType()->notEmpty())
             ->key('username', v::stringType()->notEmpty()->noWhitespace())
-            ->key('gender', v::stringType()->notEmpty()->noWhitespace());
+            ->key('gender', v::stringType()->notEmpty());
         return $validator;
     }
 
@@ -58,10 +58,10 @@ class RegisterController extends BaseController {
             $userValidator = $this->createFormValidator($parsedData);
 
             try{
+                $parsedData['countryId'] = (int)$parsedData['countryId'];
                 $userValidator->assert($parsedData);
                 
                 $userInTable = User::where('email', $parsedData['email'])->first();
-                
                 if($userInTable){
                     throw new \Exception('User is already registered');
                 }
@@ -85,7 +85,8 @@ class RegisterController extends BaseController {
                 else{
                     $errorMessages = $e->findMessages([
                         'email' => 'Ingresa un email valido.',
-                        'noWhitespace' => 'Los espacios en blanco estan prohibidos.',
+                        'intType' => 'Ingresa una cedula valida',
+                        'noWhitespace' => 'No uses espacios en blanco en tu nombre de usuario ni en tu contraseña.',
                         'notEmpty' => 'Completa toda la información requerida.',
                         'length' => 'La contraseña debe estar entre 6-20 caractéres',
                         'equals' => 'Las contraseñas son diferentes.'
