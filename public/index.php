@@ -128,11 +128,9 @@ $map->get('editTicket', "/entry/edit", [
     'auth' => true,
     'forAdmin' => true,
 ]);
-<<<<<<< HEAD
 $map->post('postEditTicket', "/entry/edit", [
     'controller' => 'App\Controllers\TicketController',
     'action' => 'postEditTicketEntry',
-=======
 $map->get('addEvent', "/event/add", [
     'controller' => 'App\Controllers\EventController',
     'action' => 'getAddEventForm',
@@ -142,7 +140,6 @@ $map->get('addEvent', "/event/add", [
 $map->post('addEventPost', "/event/add", [
     'controller' => 'App\Controllers\EventController',
     'action' => 'postAddEventForm',
->>>>>>> master
     'auth' => true,
     'forAdmin' => true,
 ]);
