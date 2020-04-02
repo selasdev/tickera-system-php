@@ -88,14 +88,7 @@ class TicketController extends BaseController {
         ]);
     }
 
-    public function getEditTicketEntry(){
-        $this->title = 'Editar Ticket - Tickera.com';
-        $ticketId = $_SESSION['ticketId'] ?? null;
-        if(!$ticketId){
-            return new RedirectResponse('../home/admin');
-        }
-
-        $ticket = Ticket::where('id', $ticketId)->first();
+    private function getEventAndStands($ticket){
         $myEvent = Event::where('id', $ticket->eventId)->first();
         $events = Event::all();
         $eventList = array();
@@ -107,13 +100,72 @@ class TicketController extends BaseController {
         }
 
         $stands = array();
-        array_push('Platino', 'VIP', 'Altos', 'Medios');
+        array_push($stands, 'Platino', 'VIP', 'Altos', 'Medios');
+        return [
+            'stands' => $stands,
+            'events' => $eventList
+        ];
+    }
+
+    public function getEditTicketEntry(){
+        $this->title = 'Editar Ticket - Tickera.com';
+        $ticketId = $_SESSION['ticketId'] ?? null;
+        if(!$ticketId){
+            return new RedirectResponse('../home/admin');
+        }
+
+        $ticket = Ticket::where('id', $ticketId)->first();
+        $dict = $this->getEventAndStands($ticket);
 
         return $this->renderHTML('editTicketInfo.twig', [
             'ticket' => $ticket,
-            'events' => $eventList,
-            'stands' => $stands
+            'events' => $dict['events'],
+            'stands' => $dict['stands']
         ]);
+    }
+
+    
+    public function postEditTicketEntry($request){
+        $parsedData = $request->getParsedBody();
+        $responseMessage = null;
+        $ticketId = (int)$_SESSION['ticketId'] ?? null;
+        if(!$ticketId){
+            return new RedirectResponse('../home/admin');
+        }
+        $eventId = (int)$parsedData['eventId'];
+        $newLocation = $parsedData['ticketLocation'];
+
+        $ticket = Ticket::where('id', $ticketId)->first();
+        $event = Event::where('id', $eventId)->first();
+
+        if($newLocation == $ticket->ticketLocation && $eventId == $ticket->eventId){
+            $responseMessage = 'Se ha actualizado el registro correctamente.';
+        }
+        else {
+            $stands = $event->getAvailableStands();
+            if(in_array($newLocation, $stands)){
+                $originalEvent = Event::where('id', $ticket->eventId)->first();
+                $originalEvent->updateAvailableStands($ticket->ticketLocation, -1);
+                $ticket->eventId = $eventId;
+                $ticket->ticketLocation = $newLocation;
+                $ticket->update();
+                $event->updateAvailableStands($ticket->ticketLocation);
+                $responseMessage = 'Se ha actualizado el registro correctamente.';
+            }
+            else {
+                $responseMessage = "No hay ubicaciones disponibles para $newLocation en $event->eventName";
+            }
+        }
+
+        $dict = $this->getEventAndStands($ticket);
+
+        return $this->renderHTML('editTicketInfo.twig', [
+            'ticket' => $ticket,
+            'events' => $dict['events'],
+            'stands' => $dict['stands'],
+            'responseMessage' => $responseMessage
+        ]);
+
     }
 
 }
