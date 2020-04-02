@@ -67,8 +67,13 @@ $map->post('loginUser', '/login', [
     'action' => 'postLogin'
 ]);
 $map->get('home', '/home', [
-    'controller' => 'App\Controllers\DashboardController',
+    'controller' => 'App\Controllers\HomeController',
     'action' => 'getUserDashboard',
+    'auth' => true
+]);
+$map->post('homePost', '/home', [
+    'controller' => 'App\Controllers\HomeController',
+    'action' => 'postUserDashboard',
     'auth' => true
 ]);
 

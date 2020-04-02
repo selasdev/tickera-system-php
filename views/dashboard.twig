@@ -15,7 +15,7 @@
     {% else %}
         <select name="event">
             {% for event in events %}
-            <option value="{{ loop.index }}">{{ event.eventName }}</option>
+            <option value="{{ loop.index - 1 }}">{{ event.eventName }}</option>
             {% endfor %}
         </select><br><br>
         <button type="submit">Continuar</button>
