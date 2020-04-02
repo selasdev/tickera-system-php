@@ -44,6 +44,12 @@ class RegisterController extends BaseController {
     }
 
     public function getRegister(){
+        $userId = $_SESSION['userId'] ?? null;
+        if($userId){
+            $isAdmin = $_SESSION['isAdmin'];
+            $response = $isAdmin ? new RedirectResponse('homeAdmin') : new RedirectResponse('home');
+            return $response;
+        }
         return $this->renderHTML("register.twig");
     }
 

@@ -15,7 +15,7 @@ class TicketController extends BaseController {
     public function getTicketForm(){
         $eventId = $_SESSION['eventId'] ?? null;
         if(!$eventId){
-            return new RedirectResponse('home');
+            return new RedirectResponse('../home');
         }
         $event = Event::where('id', $eventId)->first();
         $ticketId = Ticket::orderBy('id', 'DESC')->get()->first()->id ?? 0;
@@ -31,7 +31,7 @@ class TicketController extends BaseController {
     public function postTicketForm($request){
         $eventId = $_SESSION['eventId'] ?? null;
         if(!$eventId){
-            return new RedirectResponse('home');
+            return new RedirectResponse('../home');
         }
 
         $parsedData = $request->getParsedBody();
@@ -46,7 +46,7 @@ class TicketController extends BaseController {
         $ticket->save();
 
         $_SESSION['ticketId'] = $ticket->id;
-        return new RedirectResponse('/buy-success');
+        return new RedirectResponse('/buy/success');
     }
 
     public function getBuyTicketSuccess() {
@@ -54,7 +54,7 @@ class TicketController extends BaseController {
         $eventId = $_SESSION['eventId'] ?? null;
 
         if(!$eventId){
-            return new RedirectResponse('home');
+            return new RedirectResponse('../home');
         }
         unset($_SESSION['eventId']);
         $ticketId = $_SESSION['ticketId'];

@@ -5,7 +5,7 @@
 <h1>Tickera.com </h1><br>
 
 <h3>Bienvenido {{ username }}</h3><br>
-
+<button><a href="/logout">Cerrar sesion</a></button><br>
 <h4>Registro de asistencia</h4> <br>
 
 <table>
@@ -14,15 +14,15 @@
     <tr>{{ userTicket.user.firstName }} | {{ userTicket.user.lastName }} 
         | {{ userTicket.user.countryId }} | {{ userTicket.event.eventName }} 
         | {{ userTicket.ticket.ticketLocation }} | 
-        <form action="homeAdmin" method="post">
+        <form action="admin" method="post">
             <input type="text" name="ticketIdShow" id="" value="{{ userTicket.ticket.id }}" hidden>
             <button type="submit">Ver</button>
         </form> | 
-        <form action="homeAdmin" method="post">
+        <form action="admin" method="post">
             <input type="text" name="ticketIdEdit" id="" value="{{ userTicket.ticket.id }}" hidden>
             <button type="submit">Editar</button>
         </form> | 
-        <form action="homeAdmin" method="post">
+        <form action="admin" method="post">
             <input type="text" name="ticketIdDelete" id="" value="{{ userTicket.ticket.id }}" hidden>
             <button type="submit">Borrar</button>
         </form>

@@ -44,14 +44,14 @@ class HomeController extends BaseController {
         $eventId = (int)$parsedBody['event'];
         $event = Event::where('id', $eventId)->first();
         $this->changeSession($eventId, null);
-        return new RedirectResponse("buy-ticket");
+        return new RedirectResponse("buy/ticket");
     }
 
     public function getAdminDashboard(){
         unset($_SESSION['ticketId']);
         $tickets = Ticket::all();
         $usersTickets = array();
-        $user = User::where('id', $_SESSION['userId'])->first();
+        $currentUser = User::where('id', $_SESSION['userId'])->first();
 
         foreach($tickets as $ticket){
             $userTicket = new UserTicket();
@@ -66,7 +66,7 @@ class HomeController extends BaseController {
         
         return $this->renderHTML('homeAdmin.twig', [
             'ticketsInfo' => $usersTickets,
-            'username' => $user->username
+            'username' => $currentUser->username
         ]);
     }
 
@@ -76,16 +76,18 @@ class HomeController extends BaseController {
         $ticketIdShow = $parsedData['ticketIdShow'] ?? null;
         if($ticketIdDelete){
             $ticket = Ticket::where('id', $parsedData['ticketIdDelete'])->first();
+            $event = Event::where('id', $ticket->eventId)->first();
+            $event->updateAvailableStands($ticket->ticketLocation, -1);
             $ticket->delete();
     
-            return new RedirectResponse('homeAdmin');
+            return new RedirectResponse('../home/admin');
         }
         else if($ticketIdShow){
             $_SESSION['ticketId'] = $ticketIdShow;
-            return new RedirectResponse('entry/show');
+            return new RedirectResponse('../entry/show');
         }
         else{
-            return new RedirectResponse('homeAdmin');
+            return new RedirectResponse('../home/admin');
         }
     }
 
