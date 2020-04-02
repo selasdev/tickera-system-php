@@ -27,4 +27,43 @@ class TicketController extends BaseController {
         ]);
     }
 
+    public function postTicketForm($request){
+        $eventId = $_SESSION['eventId'] ?? null;
+        if(!$eventId){
+            return new RedirectResponse('home');
+        }
+
+        $parsedData = $request->getParsedBody();
+
+        $event = Event::where('id', $eventId)->first();
+        $ticket = new Ticket();
+        $ticket->eventId = $eventId;
+        $ticket->userId = $_SESSION['userId'];
+        
+        $ticket->ticketLocation = $parsedData['ticketLocation'];
+        $event->updateAvailableStands($parsedData['ticketLocation']);
+        $ticket->save();
+
+        $_SESSION['ticketId'] = $ticket->id;
+        return new RedirectResponse('/buy-success');
+    }
+
+    public function getBuyTicketSuccess(){
+        $eventId = $_SESSION['eventId'] ?? null;
+
+        if(!$eventId){
+            return new RedirectResponse('home');
+        }
+        unset($_SESSION['eventId']);
+        $ticketId = $_SESSION['ticketId'];
+        $ticket = Ticket::where('id', $ticketId)->first();
+        $event = Event::where('id', $ticket->eventId)->first();
+        unset($_SESSION['ticketId']);
+
+        return $this->renderHTML('buyTicketSuccess.twig', [
+            'ticket' => $ticket,
+            'event' => $event
+        ]);
+    }
+
 }

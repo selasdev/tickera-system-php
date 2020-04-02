@@ -12,7 +12,7 @@
     <label for="">Asiento: </label>
     <select name="ticketLocation">
         {% for stand in stands %}
-        <option value="{{ loop.index - 1}}">{{ stand }}</option>
+        <option value="{{ stand }}">{{ stand }}</option>
         {% endfor %}
     </select><br><br>
     <button type="submit">Comprar</button>

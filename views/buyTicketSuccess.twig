@@ -1,0 +1,16 @@
+{% extends "baseTemplate.twig" %}
+
+{% block content %}
+
+<h2>Gracias por tu compra!</h2>
+
+<h4>Datos de tu boleto: </h4><br>
+
+<ul>
+    <li>Evento: {{ event.eventName }}</li>
+    <li>Serial: {{ ticket.id }}</li>
+    <li>Fecha: {{ event.eventDate }}</li>
+    <li>Ubicación: {{ ticket.ticketLocation }}</li>
+</ul>
+
+{% endblock %}

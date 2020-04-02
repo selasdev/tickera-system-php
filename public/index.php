@@ -76,15 +76,24 @@ $map->post('homePost', '/home', [
     'action' => 'postUserDashboard',
     'auth' => true
 ]);
-/*
-Adds route only if the value exist on super-global.
-*/
+
 $map->get('buy-ticket-form', "/buy-ticket", [
     'controller' => 'App\Controllers\TicketController',
     'action' => 'getTicketForm',
     'auth' => true,
 ]);
 
+$map->post('buy-ticket-form-post', "/buy-ticket", [
+    'controller' => 'App\Controllers\TicketController',
+    'action' => 'postTicketForm',
+    'auth' => true,
+]);
+
+$map->get('buy-success', "/buy-success", [
+    'controller' => 'App\Controllers\TicketController',
+    'action' => 'getBuyTicketSuccess',
+    'auth' => true,
+]);
 $matcher = $routerContainer->getMatcher();
 $route = $matcher->match($request);
 

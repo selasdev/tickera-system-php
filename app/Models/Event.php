@@ -35,4 +35,25 @@ class Event extends Model {
 
         return $availableStands;
     }
+
+    public function updateAvailableStands($ticketLocation){
+        switch ($ticketLocation) {
+            case 'Platino':
+                $this->platinumsAvailable -= 1;
+                break;
+            case 'VIP':
+                $this->vipsAvailable -= 1;
+                break;
+            case 'Medios':
+                $this->mediumAvailable -= 1;
+                break;
+            case 'Altos':
+                $this->highsAvailable -= 1;
+                break;
+            
+            default:
+                break;
+        }
+        $this->update();
+    }
 }
