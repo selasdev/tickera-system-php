@@ -3,12 +3,13 @@
 {% block content %}
 
 	{% if responseMessage %}
-		<div class="alert alert-primary" role="alert">
+		<div class="alert alert-danger m-0 text-center" role="alert">
 			{{ responseMessage }}
 		</div>
 	{% endif %}
+
 	{% if errorMessages is not same as(null) %}
-		<div class="alert alert-primary" role="alert">
+		<div class="alert alert-danger m-0 text-center" role="alert">
 			<ul>
 				{% for msg in errorMessages %}
 					{% if msg is not same as(null) and msg is not same as('') %}
@@ -17,12 +18,13 @@
 				{% endfor %}
 			</ul>
 		</div>
-	{% endif %}
+    {% endif %}
+    
 	<div class="register-container min-vh-100 py-5 default-bg">
 		<div class="container py-5">
-            <div class="text-register text-center primary-text mb-5">
-                <h1>¡Empieza ya a disfrutar de los mejores eventos!</h1>
-            </div>
+			<div class="text-register text-center primary-text mb-5">
+				<h1>¡Empieza ya a disfrutar de los mejores eventos!</h1>
+			</div>
 			<div class="row">
 				<div class="col-lg-7">
 					<form class="shadow-lg rounded border border-dark p-5 dark-bg" action="signup" method="post" enctype="multipart/form-data">
