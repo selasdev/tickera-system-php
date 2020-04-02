@@ -3,6 +3,8 @@
 namespace App\Controllers;
 
 use App\Models\Event;
+use App\Models\UserTicket;
+use App\Models\Ticket;
 use App\Models\User;
 use Laminas\Diactoros\Response\RedirectResponse;
 
@@ -43,6 +45,28 @@ class HomeController extends BaseController {
         $event = Event::where('id', $eventId)->first();
         $this->changeSession($eventId, null);
         return new RedirectResponse("buy-ticket");
+    }
+
+    public function getAdminDashboard(){
+        $tickets = Ticket::all();
+        $usersTickets = array();
+        $user = User::where('id', $_SESSION['userId'])->first();
+
+        foreach($tickets as $ticket){
+            $userTicket = new UserTicket();
+            $event = Event::where('id', $ticket->eventId)->first();
+            $user = User::where('id', $ticket->userId)->first();
+
+            $userTicket->event = $event;
+            $userTicket->user = $user;
+            $userTicket->ticket = $ticket;
+            array_push($usersTickets, $userTicket);
+        }
+        
+        return $this->renderHTML('homeAdmin.twig', [
+            'ticketsInfo' => $usersTickets,
+            'username' => $user->username
+        ]);
     }
 
 }

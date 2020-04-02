@@ -69,31 +69,43 @@ $map->post('loginUser', '/login', [
 $map->get('home', '/home', [
     'controller' => 'App\Controllers\HomeController',
     'action' => 'getUserDashboard',
-    'auth' => true
+    'auth' => true,
+    'forUser' => true,
 ]);
 $map->post('homePost', '/home', [
     'controller' => 'App\Controllers\HomeController',
     'action' => 'postUserDashboard',
-    'auth' => true
+    'auth' => true,
+    'forUser' => true,
 ]);
 
 $map->get('buy-ticket-form', "/buy-ticket", [
     'controller' => 'App\Controllers\TicketController',
     'action' => 'getTicketForm',
     'auth' => true,
+    'forUser' => true,
 ]);
 
 $map->post('buy-ticket-form-post', "/buy-ticket", [
     'controller' => 'App\Controllers\TicketController',
     'action' => 'postTicketForm',
     'auth' => true,
+    'forUser' => true,
 ]);
 
 $map->get('buy-success', "/buy-success", [
     'controller' => 'App\Controllers\TicketController',
     'action' => 'getBuyTicketSuccess',
     'auth' => true,
+    'forUser' => true,
 ]);
+$map->get('homeAdmin', '/homeAdmin', [
+    'controller' => 'App\Controllers\HomeController',
+    'action' => 'getAdminDashboard',
+    'auth' => true,
+    'forUser' => false,
+]);
+
 $matcher = $routerContainer->getMatcher();
 $route = $matcher->match($request);
 
@@ -105,12 +117,24 @@ else{
     $controllerName = $handlerData['controller'];
     $actionName = $handlerData['action'];
     $needsAuth = $handlerData['auth'] ?? false;
-
+    $forUser = $handlerData['forUser'] ?? false;
+    
+    $isAdmin = $_SESSION['isAdmin'] ?? false;
     $sessionUserId = $_SESSION['userId'] ?? null;
+
     if( $needsAuth && !$sessionUserId  ){
         echo 'Error. This page needs authentication';
         die;
     }
+    if($isAdmin && $forUser){
+        echo 'This page is only for users.';
+        die;
+    }
+    if(!$isAdmin && !$forUser){
+        echo 'This page is only for admins.';
+        die;
+    }
+
     //Check if buying
     $eventId = $handler['eventId'] ?? null;
 

@@ -32,7 +32,7 @@ class AuthController extends BaseController {
             if($validPassword){
                 $responseMessage = "Bienvenido a tickera.";
                 $_SESSION['userId'] = $user->id;
-                $_SESSION['isAdmin'] = $user->isAdmin;
+                $_SESSION['isAdmin'] = (bool)$user->isAdmin;
                 $response = $user->isAdmin ? new RedirectResponse('homeAdmin') : new RedirectResponse('home');
                 return $response;
             }
