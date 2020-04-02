@@ -18,9 +18,6 @@ class AuthController extends BaseController {
     }
 
     private function userExists($usernameOrEmail){
-        $user = User::where('email', $usernameOrEmail)->first();
-        if($user)
-            return $user;
         $user = User::where('username', $usernameOrEmail)->first();
         return $user;
     }

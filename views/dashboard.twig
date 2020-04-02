@@ -1,0 +1,21 @@
+{% extends "baseTemplate.twig" %}
+
+{% block content %}
+
+<h1>Tickera.com </h1>
+
+<h3>Bienveido {{ username }}</h3>
+
+<h4>Adquiere tu ticket para los eventos disponibles: </h4>
+
+<form action="home" method="POST" enctype="multipart/form-data">
+    <label for="">Eventos disponibles</label>
+    <select name="event">
+        {% for event in events % }
+        <option value="{{ loop.index }}">{{ event.eventName }}</option>
+        {% endfor %}
+    </select>
+    <button type="submit">Continuar</button>
+</form>
+
+{% endblock %}
