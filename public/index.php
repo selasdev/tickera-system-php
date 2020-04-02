@@ -131,6 +131,7 @@ $map->get('editTicket', "/entry/edit", [
 $map->post('postEditTicket', "/entry/edit", [
     'controller' => 'App\Controllers\TicketController',
     'action' => 'postEditTicketEntry',
+]);
 $map->get('addEvent', "/event/add", [
     'controller' => 'App\Controllers\EventController',
     'action' => 'getAddEventForm',
