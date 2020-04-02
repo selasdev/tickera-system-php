@@ -69,50 +69,95 @@ $map->post('loginUser', '/login', [
 $map->get('home', '/home', [
     'controller' => 'App\Controllers\HomeController',
     'action' => 'getUserDashboard',
-    'auth' => true
+    'auth' => true,
+    'forUser' => true,
 ]);
 $map->post('homePost', '/home', [
     'controller' => 'App\Controllers\HomeController',
     'action' => 'postUserDashboard',
-    'auth' => true
+    'auth' => true,
+    'forUser' => true,
 ]);
 
-$map->get('buy-ticket-form', "/buy-ticket", [
+$map->get('buy-ticket-form', "/buy/ticket", [
     'controller' => 'App\Controllers\TicketController',
     'action' => 'getTicketForm',
     'auth' => true,
+    'forUser' => true,
 ]);
 
-$map->post('buy-ticket-form-post', "/buy-ticket", [
+$map->post('buy-ticket-form-post', "/buy/ticket", [
     'controller' => 'App\Controllers\TicketController',
     'action' => 'postTicketForm',
     'auth' => true,
+    'forUser' => true,
 ]);
 
-$map->get('buy-success', "/buy-success", [
+$map->get('buy-success', "/buy/success", [
     'controller' => 'App\Controllers\TicketController',
     'action' => 'getBuyTicketSuccess',
     'auth' => true,
+    'forUser' => true,
 ]);
+$map->get('homeAdmin', '/home/admin', [
+    'controller' => 'App\Controllers\HomeController',
+    'action' => 'getAdminDashboard',
+    'auth' => true,
+    'forAdmin' => true,
+]);
+$map->post('homeAdminPost', '/home/admin', [
+    'controller' => 'App\Controllers\HomeController',
+    'action' => 'handleButtonClick',
+    'auth' => true,
+    'forAdmin' => true,
+]);
+$map->get('showTicket', "/entry/show", [
+    'controller' => 'App\Controllers\TicketController',
+    'action' => 'getShowTicketEntry',
+    'auth' => true,
+    'forAdmin' => true,
+]);
+$map->get('logout', "/logout", [
+    'controller' => 'App\Controllers\AuthController',
+    'action' => 'logout',
+    'auth' => true
+]);
+$map->get('editTicket', "/entry/edit", [
+    'controller' => 'App\Controllers\TicketController',
+    'action' => 'getEditTicketEntry',
+    'auth' => true,
+    'forAdmin' => true,
+]);
+
 $matcher = $routerContainer->getMatcher();
 $route = $matcher->match($request);
 
 if(!$route){
     echo 'Page not found';
 }
-else{
+else {
     $handlerData = $route->handler;
     $controllerName = $handlerData['controller'];
     $actionName = $handlerData['action'];
     $needsAuth = $handlerData['auth'] ?? false;
-
+    $forUser = $handlerData['forUser'] ?? false;
+    $forAdmin = $handlerData['forAdmin'] ?? false;
+    
+    $isAdmin = $_SESSION['isAdmin'] ?? false;
     $sessionUserId = $_SESSION['userId'] ?? null;
+
     if( $needsAuth && !$sessionUserId  ){
         echo 'Error. This page needs authentication';
         die;
     }
-    //Check if buying
-    $eventId = $handler['eventId'] ?? null;
+    else if($forAdmin && !$isAdmin){
+        echo 'Error. This page is for admins';
+        die;
+    }
+    else if($forUser && $isAdmin){
+        echo 'Error. This page is for users';
+        die;
+    }
 
     $controller = new $controllerName;
     $response = $controller->$actionName($request);

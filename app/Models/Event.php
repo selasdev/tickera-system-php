@@ -15,40 +15,44 @@ class Event extends Model {
         $this->mediumAvailable > 0;
     }
 
-    public function getAvailableStands(){
+    public function getAvailableStands($ticketLocation){
         $availableStands = array();
+        if(!$ticketLocation){
+            $ticketLocation = '';
+        }
 
-        if($this->platinumsAvailable > 0) {
+        if($this->platinumsAvailable > 0 || $ticketLocation == 'Platino') {
             array_push($availableStands, 'Platino');
         }
 
-        if($this->vipsAvailable > 0) {
+        if($this->vipsAvailable > 0 || $ticketLocation == 'VIP') {
             array_push($availableStands, 'VIP');
         }
 
-        if($this->mediumAvailable > 0) {
-            array_push($availableStands, 'Medios');
-        }
-        if($this->highsAvailable > 0) {
+        if($this->highsAvailable > 0 || $ticketLocation == 'Altos') {
             array_push($availableStands, 'Altos');
+        }
+        
+        if($this->mediumAvailable > 0 || $ticketLocation == 'Medios') {
+            array_push($availableStands, 'Medios');
         }
 
         return $availableStands;
     }
 
-    public function updateAvailableStands($ticketLocation){
+    public function updateAvailableStands($ticketLocation, $sumValue = 1){
         switch ($ticketLocation) {
             case 'Platino':
-                $this->platinumsAvailable -= 1;
+                $this->platinumsAvailable -= $sumValue;
                 break;
             case 'VIP':
-                $this->vipsAvailable -= 1;
+                $this->vipsAvailable -= $sumValue;
                 break;
             case 'Medios':
-                $this->mediumAvailable -= 1;
+                $this->mediumAvailable -= $sumValue;
                 break;
             case 'Altos':
-                $this->highsAvailable -= 1;
+                $this->highsAvailable -= $sumValue;
                 break;
             
             default:

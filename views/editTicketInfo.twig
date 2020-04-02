@@ -1,0 +1,23 @@
+{% extends "baseTemplate.twig" %}
+
+{% block content %}
+
+<form action="edit" method="post" enctype="multipart/form-data">
+    <label for="">Serial: </label>
+    <input type="text" name="id" disabled value="{{ ticket.id }}"><br>
+    <label for="">Evento: </label>
+    <select name="eventId">
+        {% for event in events %}
+        <option value="{{ event.id }}">{{ event.eventName }}</option>
+        {% endfor %}
+    </select><br><br>
+    <label for="">Asiento: </label>
+    <select name="ticketLocation">
+        {% for stand in stands %}
+        <option value="{{ stand }}">{{ stand }}</option>
+        {% endfor %}
+    </select><br><br>
+    <button type="submit">Enviar</button>
+</form>
+
+{% endblock %}

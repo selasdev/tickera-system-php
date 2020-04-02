@@ -10,6 +10,12 @@ class AuthController extends BaseController {
     protected $title = "Inicia sesión - Tickera.com";
 
     public function getLogin(){
+        $userId = $_SESSION['userId'] ?? null;
+        if($userId){
+            $isAdmin = $_SESSION['isAdmin'];
+            $response = $isAdmin ? new RedirectResponse('homeAdmin') : new RedirectResponse('home');
+            return $response;
+        }
         return $this->renderHTML('login.twig');
     }
 
@@ -32,8 +38,8 @@ class AuthController extends BaseController {
             if($validPassword){
                 $responseMessage = "Bienvenido a tickera.";
                 $_SESSION['userId'] = $user->id;
-                $_SESSION['isAdmin'] = $user->isAdmin;
-                $response = $user->isAdmin ? new RedirectResponse('homeAdmin') : new RedirectResponse('home');
+                $_SESSION['isAdmin'] = (bool)$user->isAdmin;
+                $response = $user->isAdmin ? new RedirectResponse('home/admin') : new RedirectResponse('home');
                 return $response;
             }
             else{
@@ -49,5 +55,10 @@ class AuthController extends BaseController {
         ]);
     }
 
+    public function logout(){
+        unset($_SESSION['userId']);
+        unset($_SESSION['isAdmin']);
+        return new RedirectResponse('/');
+    }
     
 }

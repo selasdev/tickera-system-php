@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\Event;
 use App\Models\Ticket;
 use App\Models\User;
+use App\Models\UserTicket;
 use Laminas\Diactoros\Response\RedirectResponse;
 
 class TicketController extends BaseController {
@@ -14,7 +15,7 @@ class TicketController extends BaseController {
     public function getTicketForm(){
         $eventId = $_SESSION['eventId'] ?? null;
         if(!$eventId){
-            return new RedirectResponse('home');
+            return new RedirectResponse('../home');
         }
         $event = Event::where('id', $eventId)->first();
         $ticketId = Ticket::orderBy('id', 'DESC')->get()->first()->id ?? 0;
@@ -30,7 +31,7 @@ class TicketController extends BaseController {
     public function postTicketForm($request){
         $eventId = $_SESSION['eventId'] ?? null;
         if(!$eventId){
-            return new RedirectResponse('home');
+            return new RedirectResponse('../home');
         }
 
         $parsedData = $request->getParsedBody();
@@ -45,14 +46,14 @@ class TicketController extends BaseController {
         $ticket->save();
 
         $_SESSION['ticketId'] = $ticket->id;
-        return new RedirectResponse('/buy-success');
+        return new RedirectResponse('/buy/success');
     }
 
-    public function getBuyTicketSuccess(){
+    public function getBuyTicketSuccess() {
         $eventId = $_SESSION['eventId'] ?? null;
 
         if(!$eventId){
-            return new RedirectResponse('home');
+            return new RedirectResponse('../home');
         }
         unset($_SESSION['eventId']);
         $ticketId = $_SESSION['ticketId'];
@@ -63,6 +64,55 @@ class TicketController extends BaseController {
         return $this->renderHTML('buyTicketSuccess.twig', [
             'ticket' => $ticket,
             'event' => $event
+        ]);
+    }
+
+    public function getShowTicketEntry(){
+        $this->title = 'Ver Ticket - Tickera.com';
+        $ticketId = $_SESSION['ticketId'] ?? null;
+        if(!$ticketId){
+            return new RedirectResponse('../home/admin');
+        }
+        $ticket = Ticket::where('id', $ticketId)->first();
+        $event = Event::where('id', $ticket->eventId)->first();
+        $user = User::where('id', $ticket->userId)->first();
+
+        $userTicket = new UserTicket();
+
+        $userTicket->event = $event;
+        $userTicket->user = $user;
+        $userTicket->ticket = $ticket;
+
+        return $this->renderHTML('showTicketInfo.twig', [
+            'userTicket' => $userTicket
+        ]);
+    }
+
+    public function getEditTicketEntry(){
+        $this->title = 'Editar Ticket - Tickera.com';
+        $ticketId = $_SESSION['ticketId'] ?? null;
+        if(!$ticketId){
+            return new RedirectResponse('../home/admin');
+        }
+
+        $ticket = Ticket::where('id', $ticketId)->first();
+        $myEvent = Event::where('id', $ticket->eventId)->first();
+        $events = Event::all();
+        $eventList = array();
+        array_push($eventList, $myEvent);
+        foreach ($events as $event) {
+            if($event->id != $myEvent->id){
+                array_push($eventList, $event);
+            }
+        }
+
+        $stands = array();
+        array_push('Platino', 'VIP', 'Altos', 'Medios');
+
+        return $this->renderHTML('editTicketInfo.twig', [
+            'ticket' => $ticket,
+            'events' => $eventList,
+            'stands' => $stands
         ]);
     }
 
