@@ -1,0 +1,21 @@
+{% extends "baseTemplate.twig" %}
+
+{% block content %}
+
+<h2> {{ event.eventName }}</h2>
+
+<form action="buy-ticket" method="post" enctype="multipart/form-data">
+    <label for="">Serial: </label>
+    <input type="text" name="id" disabled value="{{ ticketId }}"><br>
+    <label for="">Fecha: </label>
+    <input type="text" name="id" disabled value="{{ event.eventDate }}"><br>
+    <label for="">Asiento: </label>
+    <select name="ticketLocation">
+        {% for stand in stands %}
+        <option value="{{ stand }}">{{ stand }}</option>
+        {% endfor %}
+    </select><br><br>
+    <button type="submit">Comprar</button>
+</form>
+
+{% endblock %}

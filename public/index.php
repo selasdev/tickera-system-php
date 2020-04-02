@@ -77,6 +77,23 @@ $map->post('homePost', '/home', [
     'auth' => true
 ]);
 
+$map->get('buy-ticket-form', "/buy-ticket", [
+    'controller' => 'App\Controllers\TicketController',
+    'action' => 'getTicketForm',
+    'auth' => true,
+]);
+
+$map->post('buy-ticket-form-post', "/buy-ticket", [
+    'controller' => 'App\Controllers\TicketController',
+    'action' => 'postTicketForm',
+    'auth' => true,
+]);
+
+$map->get('buy-success', "/buy-success", [
+    'controller' => 'App\Controllers\TicketController',
+    'action' => 'getBuyTicketSuccess',
+    'auth' => true,
+]);
 $matcher = $routerContainer->getMatcher();
 $route = $matcher->match($request);
 
@@ -94,6 +111,8 @@ else{
         echo 'Error. This page needs authentication';
         die;
     }
+    //Check if buying
+    $eventId = $handler['eventId'] ?? null;
 
     $controller = new $controllerName;
     $response = $controller->$actionName($request);
