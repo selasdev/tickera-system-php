@@ -15,7 +15,7 @@ class Event extends Model {
         $this->mediumAvailable > 0;
     }
 
-    public function getAvailableStands($ticketLocation){
+    public function getAvailableStands($ticketLocation = null){
         $availableStands = array();
         if(!$ticketLocation){
             $ticketLocation = '';

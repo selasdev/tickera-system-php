@@ -128,6 +128,18 @@ $map->get('editTicket', "/entry/edit", [
     'auth' => true,
     'forAdmin' => true,
 ]);
+$map->get('addEvent', "/event/add", [
+    'controller' => 'App\Controllers\EventController',
+    'action' => 'getAddEventForm',
+    'auth' => true,
+    'forAdmin' => true,
+]);
+$map->post('addEventPost', "/event/add", [
+    'controller' => 'App\Controllers\EventController',
+    'action' => 'postAddEventForm',
+    'auth' => true,
+    'forAdmin' => true,
+]);
 
 $matcher = $routerContainer->getMatcher();
 $route = $matcher->match($request);

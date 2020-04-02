@@ -2,25 +2,46 @@
 
 {% block content %}
 
-<h1>Tickera.com </h1><br>
+	<div class="container-dashboard dark-bg h-100 w-100 py-5">
+		<div class="container p-5">
+			<div class="text-center primary-text">
+				<h1>Panel de control - Usuario</h1>
+			</div>
+			<div class="row py-5">
+				<div class="col-md-6 p-5">
+					<div class="primary-text text-center shadow-lg rounded border border-dark darker-bg w-100 h-100 p-5 align-items-center justify-content-center">
+						<h3>Estás conectado como
+							{{ username }}</h3><br>
+						<a href="/logout" class="btn w-100 btn-dark">Cerrar sesion</a><br>
+					</div>
+				</div>
+				<div class="col-md-6 p-5">
+					<div class="primary-text text-center shadow-lg rounded border border-dark darker-bg w-100 h-100 p-5">
+						<h4>Adquiere tu ticket para los eventos disponibles:
+						</h4><br>
 
-<h3>Bienvenido {{ username }}</h3><br>
-<button><a href="/logout">Cerrar sesion</a></button><br>
+						<form action="home" method="POST" enctype="multipart/form-data">
+							<div class="form-group">
+								<label class="form-text" for="event">Eventos disponibles:</label><br>
+								{% if events|length == 0 %}
+									<p class="form-text">Lo sentimos, no hay eventos disponibles</p><br>
+								{% else %}
+									<select class="form-control" name="event">
+										{% for event in events %}
+											<option value="{{ loop.index }}">{{ event.eventName }}</option>
+										{% endfor %}
+									</select><br><br>
+									<button class="btn w-100 btn-dark" type="submit">Continuar</button>
+								{% endif %}
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
 
-<h4>Adquiere tu ticket para los eventos disponibles: </h4><br>
 
-<form action="home" method="POST" enctype="multipart/form-data">
-    <label for="">Eventos disponibles:</label><br>
-    {% if events|length == 0 %}
-    <p>Lo sentimos, no hay eventos disponibles</p><br>
-    {% else %}
-        <select name="event">
-            {% for event in events %}
-            <option value="{{ loop.index }}">{{ event.eventName }}</option>
-            {% endfor %}
-        </select><br><br>
-        <button type="submit">Continuar</button>
-    {% endif %}
-</form>
+		</div>
+	</div>
+
 
 {% endblock %}
