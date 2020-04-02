@@ -2,17 +2,29 @@
 
 {% block content %}
 
-<h2>Gracias por tu compra!</h2>
+	<div class="ticket-container min-vh-100 py-5 default-bg">
+		<div class="container py-5 primary-text">
+			<div class="shadow-lg rounded border border-dark p-5 darker-bg">
+				<div class="text-center p-4">
+					<h2 class="my-3">Gracias por tu compra!</h2>
 
-<h4>Datos de tu boleto: </h4><br>
+					<h4 class="my-3">Datos de tu boleto:</h4><br>
+				</div>
+				<ul class="list-group my-4">
+					<li class="list-group-item dark-bg">Evento:
+						{{ event.eventName }}</li>
+					<li class="list-group-item dark-bg">Serial:
+						{{ ticket.id }}</li>
+					<li class="list-group-item dark-bg">Fecha:
+						{{ event.eventDate }}</li>
+					<li class="list-group-item dark-bg">Ubicación:
+						{{ ticket.ticketLocation }}</li>
+				</ul>
 
-<ul>
-    <li>Evento: {{ event.eventName }}</li>
-    <li>Serial: {{ ticket.id }}</li>
-    <li>Fecha: {{ event.eventDate }}</li>
-    <li>Ubicación: {{ ticket.ticketLocation }}</li>
-</ul><br>
-<button type="submit"><a href="/home">Volver</a></button>
+				<a class="btn btn-dark w-100" href="/home">Volver</a>
+			</div>
+		</div>
+	</div>
 
 
 {% endblock %}

@@ -2,20 +2,39 @@
 
 {% block content %}
 
-<h2> {{ event.eventName }}</h2>
+	<div class="ticket-container min-vh-100 py-5 default-bg">
+		<div class="container py-5 primary-text">
+			<form class="shadow-lg rounded border border-dark p-5 darker-bg" action="ticket" method="post" enctype="multipart/form-data">
+				<div class="form-group text-center">
+					<h2>
+						{{ event.eventName }}
+					</h2>
+				</div>
+				<div class="form-group">
+					<label class="form-text" for="id">Serial:
+					</label>
+					<input class="form-control" type="text" name="id" disabled value="{{ ticketId }}"><br>
+				</div>
+				<div class="form-group">
+					<label class="form-text" for="date">Fecha:
+					</label>
+					<input class="form-control" type="text" name="date" disabled value="{{ event.eventDate }}"><br>
+				</div>
+				<div class="form-group">
+					<label class="form-text" for="ticketLocation">Asiento:
+					</label>
+					<select class="form-control" name="ticketLocation">
+						{% for stand in stands %}
+							<option value="{{ stand }}">{{ stand }}</option>
+						{% endfor %}
+					</select><br><br>
+				</div>
 
-<form action="ticket" method="post" enctype="multipart/form-data">
-    <label for="">Serial: </label>
-    <input type="text" name="id" disabled value="{{ ticketId }}"><br>
-    <label for="">Fecha: </label>
-    <input type="text" name="date" disabled value="{{ event.eventDate }}"><br>
-    <label for="">Asiento: </label>
-    <select name="ticketLocation">
-        {% for stand in stands %}
-        <option value="{{ stand }}">{{ stand }}</option>
-        {% endfor %}
-    </select><br><br>
-    <button type="submit">Comprar</button>
-</form>
+				<button class="btn btn-dark w-100" type="submit">Comprar</button>
+			</form>
+		</div>
+	</div>
+
+	<form action="ticket" method="post" enctype="multipart/form-data"></form>
 
 {% endblock %}
