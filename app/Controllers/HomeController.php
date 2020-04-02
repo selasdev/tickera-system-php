@@ -48,6 +48,7 @@ class HomeController extends BaseController {
     }
 
     public function getAdminDashboard(){
+        unset($_SESSION['ticketId']);
         $tickets = Ticket::all();
         $usersTickets = array();
         $user = User::where('id', $_SESSION['userId'])->first();
@@ -72,11 +73,16 @@ class HomeController extends BaseController {
     public function handleButtonClick($request){
         $parsedData = $request->getParsedBody();
         $ticketIdDelete = $parsedData['ticketIdDelete'] ?? null;
+        $ticketIdShow = $parsedData['ticketIdShow'] ?? null;
         if($ticketIdDelete){
             $ticket = Ticket::where('id', $parsedData['ticketIdDelete'])->first();
             $ticket->delete();
     
             return new RedirectResponse('homeAdmin');
+        }
+        else if($ticketIdShow){
+            $_SESSION['ticketId'] = $ticketIdShow;
+            return new RedirectResponse('entry/show');
         }
         else{
             return new RedirectResponse('homeAdmin');

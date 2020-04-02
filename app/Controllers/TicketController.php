@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\Event;
 use App\Models\Ticket;
 use App\Models\User;
+use App\Models\UserTicket;
 use Laminas\Diactoros\Response\RedirectResponse;
 
 class TicketController extends BaseController {
@@ -48,7 +49,8 @@ class TicketController extends BaseController {
         return new RedirectResponse('/buy-success');
     }
 
-    public function getBuyTicketSuccess(){
+    public function getBuyTicketSuccess() {
+        $this->title = 'Ver Ticket - Tickera.com';
         $eventId = $_SESSION['eventId'] ?? null;
 
         if(!$eventId){
@@ -63,6 +65,26 @@ class TicketController extends BaseController {
         return $this->renderHTML('buyTicketSuccess.twig', [
             'ticket' => $ticket,
             'event' => $event
+        ]);
+    }
+
+    public function getShowTicketEntry(){
+        $ticketId = $_SESSION['ticketId'] ?? null;
+        if(!$ticketId){
+            return new RedirectResponse('homeAdmin');
+        }
+        $ticket = Ticket::where('id', $ticketId)->first();
+        $event = Event::where('id', $ticket->eventId)->first();
+        $user = User::where('id', $ticket->userId)->first();
+
+        $userTicket = new UserTicket();
+
+        $userTicket->event = $event;
+        $userTicket->user = $user;
+        $userTicket->ticket = $ticket;
+
+        return $this->renderHTML('showTicketInfo.twig', [
+            'userTicket' => $userTicket
         ]);
     }
 

@@ -111,6 +111,12 @@ $map->post('homeAdminPost', '/homeAdmin', [
     'auth' => true,
     'forUser' => false,
 ]);
+$map->get('showTicket', "/entry/show", [
+    'controller' => 'App\Controllers\TicketController',
+    'action' => 'getShowTicketEntry',
+    'auth' => true,
+    'forUser' => false,
+]);
 
 $matcher = $routerContainer->getMatcher();
 $route = $matcher->match($request);

@@ -36,19 +36,19 @@ class Event extends Model {
         return $availableStands;
     }
 
-    public function updateAvailableStands($ticketLocation){
+    public function updateAvailableStands($ticketLocation, $sumValue = 1){
         switch ($ticketLocation) {
             case 'Platino':
-                $this->platinumsAvailable -= 1;
+                $this->platinumsAvailable -= $sumValue;
                 break;
             case 'VIP':
-                $this->vipsAvailable -= 1;
+                $this->vipsAvailable -= $sumValue;
                 break;
             case 'Medios':
-                $this->mediumAvailable -= 1;
+                $this->mediumAvailable -= $sumValue;
                 break;
             case 'Altos':
-                $this->highsAvailable -= 1;
+                $this->highsAvailable -= $sumValue;
                 break;
             
             default:
