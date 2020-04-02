@@ -33,6 +33,8 @@ class AuthController extends BaseController {
                 $responseMessage = "Bienvenido a tickera.";
                 $_SESSION['userId'] = $user->id;
                 $_SESSION['isAdmin'] = $user->isAdmin;
+                $response = $user->isAdmin ? new RedirectResponse('homeAdmin') : new RedirectResponse('home');
+                return $response;
             }
             else{
                 $responseMessage = $this->badCredentials();

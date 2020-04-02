@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\Event;
+use App\Models\User;
 use Laminas\Diactoros\Response\RedirectResponse;
 
 class DashboardController extends BaseController {
@@ -12,9 +13,16 @@ class DashboardController extends BaseController {
 
     public function getUserDashboard(){
         $events = Event::all();
+        $ad = $_SESSION['userId'];
         $user = User::where('id', $_SESSION['userId'])->first();
-        $this->renderHTML('dashboard.twig', [
-            'events' => $events,
+        $finalEvents = array();
+        foreach ($events as $event) {
+            if($event->canBuy()){
+                array_push($finalEvents, $event);
+            }
+        }
+        return $this->renderHTML('dashboard.twig', [
+            'events' => $finalEvents,
             'username' => $user->username
         ]);
     }

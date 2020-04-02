@@ -66,7 +66,11 @@ $map->post('loginUser', '/login', [
     'controller' => 'App\Controllers\AuthController',
     'action' => 'postLogin'
 ]);
-
+$map->get('home', '/home', [
+    'controller' => 'App\Controllers\DashboardController',
+    'action' => 'getUserDashboard',
+    'auth' => true
+]);
 
 $matcher = $routerContainer->getMatcher();
 $route = $matcher->match($request);
