@@ -1,13 +1,14 @@
 <?php
 
 namespace App\Controllers;
-
 use Laminas\Diactoros\Response\HtmlResponse;
+
 
 class BaseController {
 
     protected $templateEngine;
     protected $title = '';
+
 
     public function __construct(){
         $loader = new \Twig\Loader\FilesystemLoader('../views');

@@ -2,32 +2,74 @@
 
 {% block content %}
 
-<h1>Tickera.com </h1><br>
+	<div class="container-ticket dark-bg h-100 w-100 py-5">
+		<div class="container p-5">
+			<div class="text-center primary-text">
+				<h1>Información del ticket</h1>
+			</div>
+			<div class="row py-5">
+				<div class="col-md-6 p-5">
+					<div class="primary-text text-center shadow-lg rounded border border-dark darker-bg w-100 h-100 p-5 align-items-center justify-content-center">
+						<h4>Usuario:
+						</h4><br>
+						<ul class="list-group" >
+							<li class="list-group-item dark-bg" >Nombre completo:
+								{{ userTicket.user.fullName() }}</li>
+							<li class="list-group-item dark-bg" >Cedula:
+								{{ userTicket.user.countryId }}</li>
+							<li class="list-group-item dark-bg" >Direccion:
+								{{ userTicket.user.address }}</li>
+							<li class="list-group-item dark-bg" >G&eacute;nero:
+								{{ userTicket.user.gender }}</li>
+							<li class="list-group-item dark-bg" >Celular:
+								{{ userTicket.user.phoneNumber }}</li>
+							<li class="list-group-item dark-bg" >E-mail:
+								{{ userTicket.user.email }}</li>
+							<li class="list-group-item dark-bg" >Nombre de usuario:
+								{{ userTicket.user.username }}</li>
+						</ul><br>
+					</div>
+				</div>
+				<div class="col-md-6 p-5">
+					<div class="primary-text text-center shadow-lg rounded border border-dark darker-bg w-100 h-100 p-5">
+						<h4>Evento:
+						</h4><br>
+						<ul class="list-group" >
+							<li class="list-group-item dark-bg">Nombre del evento:
+								{{ userTicket.event.eventName }}</li>
+							<li class="list-group-item dark-bg">Fecha:
+								{{ userTicket.event.eventDate }}</li>
+							<li class="list-group-item dark-bg">Asientos Platino disponibles:
+								{{ userTicket.event.platinumsAvailable }}</li>
+							<li class="list-group-item dark-bg">Asientos VIP disponibles:
+								{{ userTicket.event.vipsAvailable }}</li>
+							<li class="list-group-item dark-bg">Asientos Altos disponibles:
+								{{ userTicket.event.highsAvailable }}</li>
+							<li class="list-group-item dark-bg">Asientos Medios disponibles:
+								{{ userTicket.event.mediumAvailable }}</li>
+						</ul><br>
+					</div>
+				</div>
+				<div class="col-md-6 p-5">
+					<div class="primary-text text-center shadow-lg rounded border border-dark darker-bg w-100 h-100 p-5">
+						<h4>Ticket:
+						</h4><br>
+						<ul class="list-group">
+							<li class="list-group-item dark-bg" >Asiento de
+								{{ userTicket.user.username }}:
+								{{ userTicket.ticket.ticketLocation }}</li>
+						</ul><br>
+					</div>
+                </div>
+                <div class="col-md-6 p-5">
+					<div class="primary-text text-center shadow-lg rounded border border-dark darker-bg w-100 h-100 p-5">
+						<a class="btn btn-dark w-100" href="/home/admin">Volver</a>
+					</div>
+				</div>
+			</div>
 
-<h3>Información del registro </h3>
 
-<h4>Usuario: </h4><br>
-<ul>
-    <li>Nombre completo: {{ userTicket.user.fullName() }}</li>
-    <li>Cedula: {{ userTicket.user.countryId }}</li>
-    <li>Direccion: {{ userTicket.user.address }}</li>
-    <li>G&eacute;nero: {{ userTicket.user.gender }}</li>
-    <li>Celular: {{ userTicket.user.phoneNumber }}</li>
-    <li>E-mail: {{ userTicket.user.email }}</li>
-    <li>Nombre de usuario: {{ userTicket.user.username }}</li>
-</ul><br>
-<h4>Evento: </h4><br>
-<ul>
-    <li>Nombre del evento: {{ userTicket.event.eventName }}</li>
-    <li>Fecha: {{ userTicket.event.eventDate }}</li>
-    <li>Asientos Platino disponibles: {{ userTicket.event.platinumsAvailable }}</li>
-    <li>Asientos VIP disponibles: {{ userTicket.event.vipsAvailable }}</li>
-    <li>Asientos Altos disponibles: {{ userTicket.event.highsAvailable }}</li>
-    <li>Asientos Medios disponibles: {{ userTicket.event.mediumAvailable }}</li>
-</ul><br>
-<h4>Ticket: </h4><br>
-<ul>
-    <li>Asiento de {{ userTicket.user.username }}: {{ userTicket.ticket.ticketLocation }}</li>
-</ul><br>
+		</div>
+	</div>
 
 {% endblock %}

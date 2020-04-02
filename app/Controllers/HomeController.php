@@ -51,6 +51,8 @@ class HomeController extends BaseController {
         unset($_SESSION['ticketId']);
         $tickets = Ticket::all();
         $usersTickets = array();
+
+        $events = Event::all();
         $currentUser = User::where('id', $_SESSION['userId'])->first();
 
         foreach($tickets as $ticket){
@@ -66,6 +68,7 @@ class HomeController extends BaseController {
         
         return $this->renderHTML('homeAdmin.twig', [
             'ticketsInfo' => $usersTickets,
+            'eventsInfo' => $events,
             'username' => $currentUser->username
         ]);
     }

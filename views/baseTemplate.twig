@@ -7,6 +7,9 @@
 		<link rel="stylesheet" type="text/css" href="views/styles/main.css"/>
 		<link rel="stylesheet" type="text/css" href="views/styles/navbar.css"/>
 		<link rel="stylesheet" type="text/css" href="views/styles/{{ fileName }}.css"/>
+		<link rel="stylesheet" type="text/css" href="../views/styles/main.css"/>
+		<link rel="stylesheet" type="text/css" href="../views/styles/navbar.css"/>
+		<link rel="stylesheet" type="text/css" href="../views/styles/{{ fileName }}.css"/>
 		<title>{{ pageTitle }}</title>
 	</head>
 	<body>
@@ -22,8 +25,13 @@
 					<div class="collapse navbar-collapse" id="navbarNav">
 						<ul class="navbar-nav">
 							<li class="nav-item active">
-								<a class="nav-link" href="#">Home
-									<span class="sr-only">(current)</span>
+								<a class="nav-link" href="/">
+									Inicio
+								</a>
+							</li>
+							<li class="nav-item active">
+								<a class="nav-link" href="/login">
+									Panel
 								</a>
 							</li>
 						</ul>
