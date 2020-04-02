@@ -18,9 +18,6 @@ class AuthController extends BaseController {
     }
 
     private function userExists($usernameOrEmail){
-        $user = User::where('email', $usernameOrEmail)->first();
-        if($user)
-            return $user;
         $user = User::where('username', $usernameOrEmail)->first();
         return $user;
     }
@@ -36,6 +33,8 @@ class AuthController extends BaseController {
                 $responseMessage = "Bienvenido a tickera.";
                 $_SESSION['userId'] = $user->id;
                 $_SESSION['isAdmin'] = $user->isAdmin;
+                $response = $user->isAdmin ? new RedirectResponse('homeAdmin') : new RedirectResponse('home');
+                return $response;
             }
             else{
                 $responseMessage = $this->badCredentials();
