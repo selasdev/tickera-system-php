@@ -2,9 +2,15 @@
 
 {% block content %}
 
+{% if responseMessage %}
+<div class="alert alert-danger my-4 text-center" role="alert">
+    {{ responseMessage }}
+</div>
+{% endif %}
+
 <form action="edit" method="post" enctype="multipart/form-data">
     <label for="">Serial: </label>
-    <input type="text" name="id" disabled value="{{ ticket.id }}"><br>
+    <input type="text" name="ticketId" value="{{ ticket.id }}" disabled><br>
     <label for="">Evento: </label>
     <select name="eventId">
         {% for event in events %}
@@ -17,7 +23,8 @@
         <option value="{{ stand }}">{{ stand }}</option>
         {% endfor %}
     </select><br><br>
-    <button type="submit">Enviar</button>
+    <button type="submit">Enviar</button><br>
+    <button><a href="../home/admin">Volver</button>
 </form>
 
 {% endblock %}

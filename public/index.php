@@ -128,6 +128,12 @@ $map->get('editTicket', "/entry/edit", [
     'auth' => true,
     'forAdmin' => true,
 ]);
+$map->post('postEditTicket', "/entry/edit", [
+    'controller' => 'App\Controllers\TicketController',
+    'action' => 'postEditTicketEntry',
+    'auth' => true,
+    'forAdmin' => true,
+]);
 
 $matcher = $routerContainer->getMatcher();
 $route = $matcher->match($request);

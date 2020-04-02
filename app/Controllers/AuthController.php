@@ -13,7 +13,7 @@ class AuthController extends BaseController {
         $userId = $_SESSION['userId'] ?? null;
         if($userId){
             $isAdmin = $_SESSION['isAdmin'];
-            $response = $isAdmin ? new RedirectResponse('homeAdmin') : new RedirectResponse('home');
+            $response = $isAdmin ? new RedirectResponse('home/admin') : new RedirectResponse('home');
             return $response;
         }
         return $this->renderHTML('login.twig');
