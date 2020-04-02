@@ -14,11 +14,11 @@
     <tr>{{ userTicket.user.firstName }} | {{ userTicket.user.lastName }} 
         | {{ userTicket.user.countryId }} | {{ userTicket.event.eventName }} 
         | {{ userTicket.ticket.ticketLocation }} | 
-        <form action="/entry/info" method="post">
+        <form action="homeAdmin" method="post">
             <input type="text" name="ticketIdShow" id="" value="{{ userTicket.ticket.id }}" hidden>
             <button type="submit">Ver</button>
         </form> | 
-        <form action="/entry/edit" method="post">
+        <form action="homeAdmin" method="post">
             <input type="text" name="ticketIdEdit" id="" value="{{ userTicket.ticket.id }}" hidden>
             <button type="submit">Editar</button>
         </form> | 

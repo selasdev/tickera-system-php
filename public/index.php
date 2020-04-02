@@ -105,6 +105,12 @@ $map->get('homeAdmin', '/homeAdmin', [
     'auth' => true,
     'forUser' => false,
 ]);
+$map->post('homeAdminPost', '/homeAdmin', [
+    'controller' => 'App\Controllers\HomeController',
+    'action' => 'handleButtonClick',
+    'auth' => true,
+    'forUser' => false,
+]);
 
 $matcher = $routerContainer->getMatcher();
 $route = $matcher->match($request);
