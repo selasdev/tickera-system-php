@@ -14,4 +14,25 @@ class Event extends Model {
         $this->highsAvailable > 0 ||
         $this->mediumAvailable > 0;
     }
+
+    public function getAvailableStands(){
+        $availableStands = array();
+
+        if($this->platinumsAvailable > 0) {
+            array_push($availableStands, 'Platino');
+        }
+
+        if($this->vipsAvailable > 0) {
+            array_push($availableStands, 'VIP');
+        }
+
+        if($this->mediumAvailable > 0) {
+            array_push($availableStands, 'Medios');
+        }
+        if($this->highsAvailable > 0) {
+            array_push($availableStands, 'Altos');
+        }
+
+        return $availableStands;
+    }
 }
