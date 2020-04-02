@@ -2,21 +2,30 @@
 
 {% block content %}
 
-{% if responseMessage %}
-<div class="alert alert-primary" role="alert">
-    {{ responseMessage }}
-</div>
-{% endif %}
-
-<h1>Inicia sesi&oacute;n en Tickera</h1>
-
-
-<form action="login" method="post" enctype="multipart/form-data">
-    <label for="">Nombre de usuario</label><br>
-    <input type="text" name="username" required><br>
-    <label for="">Contraseña</label><br>
-    <input type="password" name="password" required><br>
-    <button type="submit">Inicia sesi&oacute;n</button>
-</form>
+	<div class="login-container min-vh-100 py-5 default-bg">
+		<div class="container py-5">
+			<div class="text-login text-center primary-text my-5">
+				<h1>Inicia sesi&oacute;n en Tickera</h1>
+			</div>
+			<div class="row d-flex justify-content-center align-items-center mt-5 pt-5">
+				<div class="col-lg-7">
+					<form class="shadow-lg rounded border border-dark p-5 dark-bg" action="login" method="post" enctype="multipart/form-data">
+						<div class="form-group">
+							<input class="form-control" type="text" name="username" placeholder="Nombre de usuario/E-mail" required><br>
+						</div>
+						<div class="form-group">
+							<input class="form-control" type="password" name="password" placeholder="Contraseña" required><br>
+						</div>
+						<button class="btn btn-dark w-100" type="submit">Inicia sesi&oacute;n</button>
+						{% if responseMessage %}
+							<div class="alert alert-danger my-4 text-center" role="alert">
+								{{ responseMessage }}
+							</div>
+						{% endif %}
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 
 {% endblock %}
