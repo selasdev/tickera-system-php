@@ -122,6 +122,12 @@ $map->get('logout', "/logout", [
     'action' => 'logout',
     'auth' => true
 ]);
+$map->get('editTicket', "/entry/edit", [
+    'controller' => 'App\Controllers\TicketController',
+    'action' => 'getEditTicketEntry',
+    'auth' => true,
+    'forAdmin' => true,
+]);
 
 $matcher = $routerContainer->getMatcher();
 $route = $matcher->match($request);

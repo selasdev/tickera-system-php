@@ -50,7 +50,6 @@ class TicketController extends BaseController {
     }
 
     public function getBuyTicketSuccess() {
-        $this->title = 'Ver Ticket - Tickera.com';
         $eventId = $_SESSION['eventId'] ?? null;
 
         if(!$eventId){
@@ -69,9 +68,10 @@ class TicketController extends BaseController {
     }
 
     public function getShowTicketEntry(){
+        $this->title = 'Ver Ticket - Tickera.com';
         $ticketId = $_SESSION['ticketId'] ?? null;
         if(!$ticketId){
-            return new RedirectResponse('homeAdmin');
+            return new RedirectResponse('../home/admin');
         }
         $ticket = Ticket::where('id', $ticketId)->first();
         $event = Event::where('id', $ticket->eventId)->first();
@@ -85,6 +85,34 @@ class TicketController extends BaseController {
 
         return $this->renderHTML('showTicketInfo.twig', [
             'userTicket' => $userTicket
+        ]);
+    }
+
+    public function getEditTicketEntry(){
+        $this->title = 'Editar Ticket - Tickera.com';
+        $ticketId = $_SESSION['ticketId'] ?? null;
+        if(!$ticketId){
+            return new RedirectResponse('../home/admin');
+        }
+
+        $ticket = Ticket::where('id', $ticketId)->first();
+        $myEvent = Event::where('id', $ticket->eventId)->first();
+        $events = Event::all();
+        $eventList = array();
+        array_push($eventList, $myEvent);
+        foreach ($events as $event) {
+            if($event->id != $myEvent->id){
+                array_push($eventList, $event);
+            }
+        }
+
+        $stands = array();
+        array_push('Platino', 'VIP', 'Altos', 'Medios');
+
+        return $this->renderHTML('editTicketInfo.twig', [
+            'ticket' => $ticket,
+            'events' => $eventList,
+            'stands' => $stands
         ]);
     }
 

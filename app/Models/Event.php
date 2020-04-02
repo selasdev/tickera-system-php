@@ -15,22 +15,26 @@ class Event extends Model {
         $this->mediumAvailable > 0;
     }
 
-    public function getAvailableStands(){
+    public function getAvailableStands($ticketLocation){
         $availableStands = array();
+        if(!$ticketLocation){
+            $ticketLocation = '';
+        }
 
-        if($this->platinumsAvailable > 0) {
+        if($this->platinumsAvailable > 0 || $ticketLocation == 'Platino') {
             array_push($availableStands, 'Platino');
         }
 
-        if($this->vipsAvailable > 0) {
+        if($this->vipsAvailable > 0 || $ticketLocation == 'VIP') {
             array_push($availableStands, 'VIP');
         }
 
-        if($this->mediumAvailable > 0) {
-            array_push($availableStands, 'Medios');
-        }
-        if($this->highsAvailable > 0) {
+        if($this->highsAvailable > 0 || $ticketLocation == 'Altos') {
             array_push($availableStands, 'Altos');
+        }
+        
+        if($this->mediumAvailable > 0 || $ticketLocation == 'Medios') {
+            array_push($availableStands, 'Medios');
         }
 
         return $availableStands;

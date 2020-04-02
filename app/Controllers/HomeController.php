@@ -74,6 +74,7 @@ class HomeController extends BaseController {
         $parsedData = $request->getParsedBody();
         $ticketIdDelete = $parsedData['ticketIdDelete'] ?? null;
         $ticketIdShow = $parsedData['ticketIdShow'] ?? null;
+        $tickedIdEdit = $parsedData['ticketIdEdit'] ?? null;
         if($ticketIdDelete){
             $ticket = Ticket::where('id', $parsedData['ticketIdDelete'])->first();
             $event = Event::where('id', $ticket->eventId)->first();
@@ -86,8 +87,9 @@ class HomeController extends BaseController {
             $_SESSION['ticketId'] = $ticketIdShow;
             return new RedirectResponse('../entry/show');
         }
-        else{
-            return new RedirectResponse('../home/admin');
+        else {
+            $_SESSION['ticketId'] = $tickedIdEdit;
+            return new RedirectResponse('../entry/edit');
         }
     }
 
