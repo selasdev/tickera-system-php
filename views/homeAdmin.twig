@@ -28,6 +28,14 @@
         </form>
     </tr><br>
     {% endfor %}
+    <table>
+        <tr>ID | Nombre del evento | Fecha del Evento | VIPs disp. | Platinos disp. | Altos disp. | Medios disp. </tr><br>
+        {% for event in eventsInfo %}
+            <tr>{{event.id}} | {{event.eventName}} | {{event.eventDate}} | {{event.vipsAvailable}} |
+                {{event.platinumsAvailable}} | {{event.highsAvailable}} | {{event.mediumAvailable}}</tr><br>
+        {% endfor %}
+    </table>
+    
 </table>
 
 {% endblock %}
