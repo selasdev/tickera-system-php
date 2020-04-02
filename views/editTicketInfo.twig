@@ -2,29 +2,46 @@
 
 {% block content %}
 
-{% if responseMessage %}
-<div class="alert alert-danger my-4 text-center" role="alert">
-    {{ responseMessage }}
-</div>
-{% endif %}
+	<div class="ticket-container min-vh-100 py-5 default-bg">
+		<div class="container py-5 primary-text">
+			<form class="shadow-lg rounded border border-dark p-5 darker-bg" action="edit" method="post" enctype="multipart/form-data">
+				<div class="text-center my-3">
+					<h1>Editar registro</h1>
+				</div>
+				<div class="form-group">
+					<label for="">Serial:
+					</label>
+					<input class="form-control" type="text" name="ticketId" value="{{ ticket.id }}" disabled><br>
+				</div>
+				<div class="form-group">
+					<label for="">Evento:
+					</label>
+					<select class="form-control" name="eventId">
+						{% for event in events %}
+							<option value="{{ event.id }}">{{ event.eventName }}</option>
+						{% endfor %}
+					</select><br><br>
+				</div>
+				<div class="form-group">
+					<label for="">Asiento:
+					</label>
+					<select class="form-control" name="ticketLocation">
+						{% for stand in stands %}
+							<option value="{{ stand }}">{{ stand }}</option>
+						{% endfor %}
+					</select><br><br>
+				</div>
+				<button class="btn btn-success w-100 my-3" type="submit">Enviar</button><br>
+				<a class="btn btn-danger w-100 my-3" href="../home/admin">Volver</a>
 
-<form action="edit" method="post" enctype="multipart/form-data">
-    <label for="">Serial: </label>
-    <input type="text" name="ticketId" value="{{ ticket.id }}" disabled><br>
-    <label for="">Evento: </label>
-    <select name="eventId">
-        {% for event in events %}
-        <option value="{{ event.id }}">{{ event.eventName }}</option>
-        {% endfor %}
-    </select><br><br>
-    <label for="">Asiento: </label>
-    <select name="ticketLocation">
-        {% for stand in stands %}
-        <option value="{{ stand }}">{{ stand }}</option>
-        {% endfor %}
-    </select><br><br>
-    <button type="submit">Enviar</button><br>
-    <button><a href="../home/admin">Volver</button>
-</form>
+				{% if responseMessage %}
+					<div class="alert alert-danger my-4 text-center" role="alert">
+						{{ responseMessage }}
+					</div>
+				{% endif %}
+			</form>
+		</div>
+	</div>
+
 
 {% endblock %}
