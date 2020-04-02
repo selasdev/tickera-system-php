@@ -76,6 +76,15 @@ $map->post('homePost', '/home', [
     'action' => 'postUserDashboard',
     'auth' => true
 ]);
+/*
+Adds route only if the value exist on super-global.
+*/
+$map->get('buy-ticket-form', "/buy-ticket", [
+    'controller' => 'App\Controllers\TicketController',
+    'action' => 'getTicketForm',
+    'auth' => true,
+    'eventId' => $_SESSION['eventId'] ?? null
+]);
 
 $matcher = $routerContainer->getMatcher();
 $route = $matcher->match($request);
@@ -94,8 +103,11 @@ else{
         echo 'Error. This page needs authentication';
         die;
     }
+    //Check if buying
+    $eventId = $handler['eventId'] ?? null;
 
     $controller = new $controllerName;
+    $request->eventId = $eventId; //Add eventId parameter to $request
     $response = $controller->$actionName($request);
 
     foreach($response->getHeaders() as $headerKey => $headerValues){
