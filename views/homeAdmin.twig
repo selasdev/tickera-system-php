@@ -2,40 +2,107 @@
 
 {% block content %}
 
-<h1>Tickera.com </h1><br>
+	<div class="container-admin dark-bg h-100 w-100 py-5">
+		<div class="container p-5">
+			<div class="text-center primary-text">
+				<h1>Panel de control - Administrador</h1>
+			</div>
+			<div class="row py-5">
+				<div class="col-md-6 p-5">
+					<div class="primary-text text-center shadow-lg rounded border border-dark darker-bg w-100 h-100 p-5">
+						<h3>Estás conectado como
+							{{ username }}</h3><br>
+						<a href="/logout" class="btn w-100 btn-dark">Cerrar sesion</a><br>
+					</div>
+				</div>
+				<div class="col-md-6 p-5">
+					<div class="primary-text text-center shadow-lg rounded border border-dark darker-bg w-100 h-100 p-5">
+						<h3>Acciones</h3><br>
+						<a href="/event/add" class="btn w-100 btn-dark">Agregar Evento</a><br>
+					</div>
+				</div>
+			</div>
 
-<h3>Bienvenido {{ username }}</h3><br>
-<button><a href="/logout">Cerrar sesion</a></button><br>
-<h4>Registro de asistencia</h4> <br>
+			<table class="table table-dark w-100 my-5">
+				<thead>
+					<tr>
+						<th scope="col">Nombre</th>
+						<th scope="col">Apellido</th>
+						<th scope="col">Cedula</th>
+						<th scope="col">Evento</th>
+						<th scope="col">Ubicacion</th>
+						<th scope="col">Ver</th>
+						<th scope="col">Editar</th>
+						<th scope="col">Borrar</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for userTicket in ticketsInfo %}
+						<tr>
+							<td>{{ userTicket.user.firstName }}</td>
+							<td>{{ userTicket.user.lastName }}
+							</td>
+							<td>{{ userTicket.user.countryId }}</td>
+							<td>{{ userTicket.event.eventName }}
+							</td>
+							<td>{{ userTicket.ticket.ticketLocation }}</td>
+							<td>
+								<form action="admin" method="post">
+									<input type="text" name="ticketIdShow" id="" value="{{ userTicket.ticket.id }}" hidden>
+									<button class="btn btn-success" type="submit">Ver</button>
+								</form>
+							</td>
+							<td>
+								<form action="admin" method="post">
+									<input type="text" name="ticketIdEdit" id="" value="{{ userTicket.ticket.id }}" hidden>
+									<button class="btn btn-primary" type="submit">Editar</button>
+								</form>
+							</td>
+							<td>
+								<form action="admin" method="post">
+									<input type="text" name="ticketIdDelete" id="" value="{{ userTicket.ticket.id }}" hidden>
+									<button class="btn btn-danger" type="submit">Borrar</button>
+								</form>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			<table class="table table-dark w-100 my-5">
+				<thead>
+					<tr>
+						<th scope="col">ID</th>
+						<th scope="col">Evento</th>
+						<th scope="col">Fecha</th>
+						<th scope="col">VIPs</th>
+						<th scope="col">Platinos</th>
+						<th scope="col">Altos</th>
+						<th scope="col">Medios</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for event in eventsInfo %}
+						<tr>
+							<td>{{ event.id }}</td>
+							<td>{{ event.eventName }}
+							</td>
+							<td>{{ event.eventDate }}</td>
+							<td>{{ event.vipsAvailable }}
+							</td>
+							<td>{{ event.platinumsAvailable }}</td>
+							<td>
+								{{event.highsAvailable}}
+							</td>
+							<td>
+								{{event.mediumAvailable}}
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
 
-<table>
-    <tr>Nombre | Apellido | Cédula | Nombre del evento | Ubicacion | Ver | Editar | Borrar </tr><br>
-    {% for userTicket in ticketsInfo %}
-    <tr>{{ userTicket.user.firstName }} | {{ userTicket.user.lastName }} 
-        | {{ userTicket.user.countryId }} | {{ userTicket.event.eventName }} 
-        | {{ userTicket.ticket.ticketLocation }} | 
-        <form action="admin" method="post">
-            <input type="text" name="ticketIdShow" id="" value="{{ userTicket.ticket.id }}" hidden>
-            <button type="submit">Ver</button>
-        </form> | 
-        <form action="admin" method="post">
-            <input type="text" name="ticketIdEdit" id="" value="{{ userTicket.ticket.id }}" hidden>
-            <button type="submit">Editar</button>
-        </form> | 
-        <form action="admin" method="post">
-            <input type="text" name="ticketIdDelete" id="" value="{{ userTicket.ticket.id }}" hidden>
-            <button type="submit">Borrar</button>
-        </form>
-    </tr><br>
-    {% endfor %}
-    <table>
-        <tr>ID | Nombre del evento | Fecha del Evento | VIPs disp. | Platinos disp. | Altos disp. | Medios disp. </tr><br>
-        {% for event in eventsInfo %}
-            <tr>{{event.id}} | {{event.eventName}} | {{event.eventDate}} | {{event.vipsAvailable}} |
-                {{event.platinumsAvailable}} | {{event.highsAvailable}} | {{event.mediumAvailable}}</tr><br>
-        {% endfor %}
-    </table>
-    
-</table>
+		</div>
+	</div>
+
 
 {% endblock %}
