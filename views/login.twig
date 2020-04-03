@@ -4,12 +4,12 @@
 
 	<div class="login-container min-vh-100 py-5 default-bg">
 		<div class="container py-5">
-			<div class="text-login text-center primary-text my-5">
+			<div class="text-login text-center primary-text my-5 revealU">
 				<h1>Inicia sesi&oacute;n en Tickera</h1>
 			</div>
 			<div class="row d-flex justify-content-center align-items-center mt-5 pt-5">
 				<div class="col-lg-7">
-					<form class="shadow-lg rounded border border-dark p-5 darker-bg" action="login" method="post" enctype="multipart/form-data">
+					<form class="shadow-lg rounded border border-dark p-5 darker-bg revealD" action="login" method="post" enctype="multipart/form-data">
 						{% if responseMessage %}
 						<div class="alert alert-danger my-4 text-center" role="alert">
 							{{ responseMessage }}

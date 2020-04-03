@@ -15,7 +15,7 @@
 	<body>
 		<main>
 			<nav class="navbar navbar-expand-lg navbar-dark black-bg shadow">
-				<div class="container primary-text">
+				<div class="container primary-text revealU">
 					<a class="navbar-brand" href="/">
 						{{ source('assets/logo-navbar.svg') }}
 					</a>
@@ -41,12 +41,35 @@
 			{% block content %}{% endblock %}
 			<footer>
 				<div class="p-5 black-bg primary-text d-flex justify-content-center align-items-center flex-column">
-				 <h4>A project by <a href="https://github.com/eagskunst">@eagskunst</a> and <a href="https://github.com/selasorlac">@selasorlac</a></h3>
+				 <h4 >A project by <a href="https://github.com/eagskunst">@eagskunst</a> and <a href="https://github.com/selasorlac">@selasorlac</a></h3>
 				</div>
 			</footer>
 			<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 			<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+			<script src="https://unpkg.com/scrollreveal"></script>
+			<script>
+				ScrollReveal().reveal('.revealR', {
+					duration: 2000,
+					origin: 'right',
+					distance: '300px'
+				});
+				ScrollReveal().reveal('.revealL', {
+					duration: 2000,
+					origin: 'left',
+					distance: '300px'
+				});
+				ScrollReveal().reveal('.revealU', {
+					duration: 2000,
+					origin: 'top',
+					distance: '300px'
+				});
+				ScrollReveal().reveal('.revealD', {
+					duration: 2000,
+					origin: 'bottom',
+					distance: '300px'
+				});
+			</script>
 		</main>
 	</body>
 </html>
