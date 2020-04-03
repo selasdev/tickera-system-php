@@ -18,8 +18,9 @@ Proyecto web de la materia Programación 2. El proyecto esta configurado para se
 4.1 Abrir xampp, en la fila de Apache, presionamos Config -> `<`Browse`>` [Apache]
 4.2 Ingresar a la carpeta conf y abrir con el editor preferido el archivo httpd.conf
 4.3 Cambiar el DocumentRoot y el Directory por el path del proyecto. Eg: 
-`DocumentRoot "C:/xampp/htdocs/tickera-system-php"`
-`<Directory "C:/xampp/htdocs/tickera-system-php">`
+
+        DocumentRoot "C:/xampp/htdocs/tickera-system-php"
+        <Directory "C:/xampp/htdocs/tickera-system-php">
 5. Descargar dependencias. Sin este paso el proyecto no va a compilar:
 5.1 En XAMPP, abrimos la terminal (botón `shell`)
 5.2 Ejecutamos el comando `cd htdocs tickera-system-php`.
